@@ -19,7 +19,11 @@ return require'packer'.startup(function(use)
 	use 'rstacruz/vim-closer'
 
 	-- rust-analyzer add-ons
-	use 'simrat39/rust-tools.nvim'
+	use { 
+		'simrat39/rust-tools.nvim', 
+		requires = { {'nvim-lua/plenary.nvim'}, {'mfussenegger/nvim-dap'} }
+	}
+	
 	
 	-- LSP progress indicator
 	use 'j-hui/fidget.nvim'
@@ -32,7 +36,6 @@ return require'packer'.startup(function(use)
 	use 'tpope/vim-vinegar'
 	use 'lewis6991/gitsigns.nvim'
 	
-
 	-- fzf extensions
 	use { 'junegunn/fzf.vim', run = function() vim.fn["fzf#install"](0) end }
 
@@ -53,6 +56,10 @@ return require'packer'.startup(function(use)
 	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
 	  requires = { {'nvim-lua/plenary.nvim'} }
 	}
+	use({
+		"luukvbaal/statuscol.nvim",
+		config = function() require("statuscol").setup() end
+	})
 end)
 
 -- Automatically update packer when plugins change

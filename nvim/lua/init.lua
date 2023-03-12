@@ -1,6 +1,13 @@
 require('plugins')
+
 -- vim variable assignments I don't know work in lua
 vim.cmd [[
+if has('termguicolors')
+	set termguicolors
+endif
+
+" The configuration options should be placed before `colorscheme sonokai`.
+let g:sonokai_style = 'espresso'
 colorscheme sonokai
 
 " enable syntax highlighting
@@ -19,15 +26,19 @@ set shortmess+=c
 " Use our horizontal real estate to show the 3-way diff
 set diffopt+=vertical]] 
 
+require'lualine'.setup {
+	options = {
+		theme = 'sonokai'
+	}
+}
+
 -- Allows folding (z<movement>) to recognize syntax folding rules, i.e. folding
 -- on braces for C/C++
 vim.opt.foldmethod = 'syntax'
 
 -- Set text to be unfolded by default
 vim.opt.foldenable = false
-
--- use system clipboard
---vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.statuscolumn = '%s%=%{v:wrap ? "" : v:lnum} %#FoldColumn#%@v:lua.StatusColumn.handler.fold@%{v:lua.StatusColumn.display.fold()}%#StatusColumnBorder#▐%#StatusColumnBuffer#'
 
 -- display line numbers
 vim.opt.number = true 
@@ -44,7 +55,7 @@ vim.opt.shiftwidth = 4
 vim.opt.cmdheight = 2
 
 -- display signs in the line number column
-vim.opt.signcolumn = 'number'
+-- vim.opt.signcolumn = 'number'
 require('remaps')
 require('gitsigns').setup()
 require('lualine').setup {

@@ -39,7 +39,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
   vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
-  vim.keymap.set('n', '<Leader>a', rt.code_action_group.code_action_group, { buffer = bufnr })
+  vim.keymap.set('n', '<C-.>', rt.code_action_group.code_action_group, { buffer = bufnr })
+  vim.keymap.set('i', '<C-.>', rt.code_action_group.code_action_group, { buffer = bufnr })
 end
 
 -- format on write
