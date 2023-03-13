@@ -7,3 +7,10 @@ depends = []
 nvim = "~/.config/nvim"
 
 [nvim.variables]
+
+[zsh]
+depends = []
+
+[zsh.files]
+zshrc = "~/.zshrc"
+zshenv = "~/.zshenv"
