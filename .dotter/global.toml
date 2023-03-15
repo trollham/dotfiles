@@ -9,8 +9,14 @@ nvim = "~/.config/nvim"
 [nvim.variables]
 
 [zsh]
-depends = []
+depends = ["p10k"]
 
 [zsh.files]
 zshrc = "~/.zshrc"
 zshenv = "~/.zshenv"
+
+[p10k]
+depends = []
+
+[p10k.files]
+p10k = "~/.p10k.zsh"
