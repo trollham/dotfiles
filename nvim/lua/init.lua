@@ -7,8 +7,8 @@ if has('termguicolors')
 endif
 
 " The configuration options should be placed before `colorscheme sonokai`.
-let g:sonokai_style = 'espresso'
-colorscheme sonokai
+" let g:sonokai_style = 'espresso'
+" colorscheme sonokai
 
 " enable syntax highlighting
 syntax enable
@@ -25,12 +25,6 @@ set shortmess+=c
 
 " Use our horizontal real estate to show the 3-way diff
 set diffopt+=vertical]] 
-
-require'lualine'.setup {
-	options = {
-		theme = 'sonokai'
-	}
-}
 
 -- Allows folding (z<movement>) to recognize syntax folding rules, i.e. folding
 -- on braces for C/C++
@@ -60,6 +54,11 @@ require('remaps')
 require('gitsigns').setup()
 require('lualine').setup {
 	options = {
-		theme = 'nord'
+		theme = 'tokyonight'
 	}
 }
+
+require('catppuccin').setup {
+	flavour = 'macchiato'
+}
+vim.cmd.colorscheme "catppuccin"
