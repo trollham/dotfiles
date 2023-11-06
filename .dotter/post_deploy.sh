@@ -1,1 +1,1 @@
-nvim +PackerInstall
+nvim --headless +PackerInstall +PackerClean +q
