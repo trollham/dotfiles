@@ -66,7 +66,7 @@ require('lualine').setup {
 }
 
 require('catppuccin').setup {
-	flavour = 'frappe',
+	flavour = 'mocha',
 	integrations = {
 		treesitter = true,
 		gitsigns = true,
@@ -76,7 +76,7 @@ require('catppuccin').setup {
 vim.cmd.colorscheme "catppuccin"
 
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust" },
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "bash" },
 	highlight = { enable = true },
     refactor = {
 		enable = true,
