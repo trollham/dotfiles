@@ -1,3 +1,12 @@
+if [ $(ps ax | grep "[s]sh-agent" | wc -l) -eq 0 ] ; then
+    eval $(ssh-agent -s) > /dev/null
+    if [ "$(ssh-add -l)" = "The agent has no identities." ] ; then
+        # Auto-add ssh keys to your ssh agent
+        # Example:
+        # ssh-add ~/.ssh/id_rsa > /dev/null 2>&1
+		ssh-add ~/.ssh/id_ed25519 > /dev/null 2>&1
+    fi
+fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -95,9 +104,6 @@ bindkey -v
 alias icat="kitty +kitten icat"
 alias ls="ls -G"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -105,3 +111,6 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # sourcing zsh-syntax-highlighting must happen at the END of ~/.zshrc
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

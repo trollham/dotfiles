@@ -43,11 +43,11 @@ return require'packer'.startup(function(use)
 	use {
 		'j-hui/fidget.nvim',
 		tag = 'legacy',
-		config = {
+		config = function()
 			require('fidget').setup{
 				-- options
 			}
-		}
+		end
 	}
 
 	-- movements for commenting code (using gc<movement>)
@@ -67,14 +67,20 @@ return require'packer'.startup(function(use)
 	  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
 	}
 
-	-- colorscheme
-	use 'sainnhe/sonokai'
-	use 'folke/tokyonight.nvim'
+	use 'nvim-tree/nvim-web-devicons'
+
 	use { 'catppuccin/nvim', as = 'catppuccin' }
 
-	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use { 
+		'nvim-treesitter/nvim-treesitter', 
+		run = function()
+			local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+			ts_update()
+		end
+	}
+	use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter', requires = 'nvim-treesitter' }
+	use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter', requires = 'nvim-treesitter' }
 
-	use 'nvim-tree/nvim-web-devicons'
 	use 'folke/trouble.nvim'
 	use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.0',

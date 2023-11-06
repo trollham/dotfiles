@@ -6,12 +6,8 @@ if has('termguicolors')
 	set termguicolors
 endif
 
-" The configuration options should be placed before `colorscheme sonokai`.
-" let g:sonokai_style = 'espresso'
-" colorscheme sonokai
-
 " enable syntax highlighting
-syntax enable
+"syntax enable
 
 " Set completeopt to have a better completion experience
 " :help completeopt
@@ -28,14 +24,27 @@ set diffopt+=vertical]]
 
 -- Allows folding (z<movement>) to recognize syntax folding rules, i.e. folding
 -- on braces for C/C++
-vim.opt.foldmethod = 'syntax'
+function FoldConfig()
+	vim.opt.foldmethod='expr'
+	vim.opt.foldexpr='nvim_treesitter#foldexpr()'
+	vim.opt.foldenable = false
+end
+
+--autocmd BufAdd,BufEnter,BufNew,BufNewFile,BufWinEnter * :call FoldConfig()
+vim.api.nvim_create_autocmd(
+	{ "BufAdd","BufEnter","BufNew","BufNewFile","BufWinEnter" },
+	{ pattern = "*", command = "lua FoldConfig()" }
+)
+--vim.opt.foldmethod = 'syntax'
 
 -- Set text to be unfolded by default
-vim.opt.foldenable = false
 -- vim.opt.statuscolumn = '%s%=%{v:wrap ? "" : v:lnum} %#FoldColumn#%@v:lua.StatusColumn.handler.fold@%{v:lua.StatusColumn.display.fold()}%#StatusColumnBorder#▐%#StatusColumnBuffer#'
 
 -- display line numbers
 vim.opt.number = true 
+
+-- time for vim to process swapfile updates and CursorHold events
+vim.opt.updatetime = 750
 
 -- if hidden is not set, TextEdit might fail.
 vim.opt.hidden = true
@@ -50,15 +59,28 @@ vim.opt.cmdheight = 2
 
 -- display signs in the line number column
 -- vim.opt.signcolumn = 'number'
+
 require('remaps')
 require('gitsigns').setup()
 require('lualine').setup {
-	options = {
-		theme = 'tokyonight'
-	}
 }
 
 require('catppuccin').setup {
-	flavour = 'macchiato'
+	flavour = 'frappe',
+	integrations = {
+		treesitter = true,
+		gitsigns = true,
+	}
 }
+
 vim.cmd.colorscheme "catppuccin"
+
+require('nvim-treesitter.configs').setup {
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust" },
+	highlight = { enable = true },
+    refactor = {
+		enable = true,
+		-- highlight_current_scope = { enable = true, } ,
+		highlight_definitions = { enable = true, },
+    },
+}
