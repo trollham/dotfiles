@@ -1,86 +1,15 @@
-require('plugins')
+-- must be set before lazy.nvim 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
--- vim variable assignments I don't know work in lua
-vim.cmd [[
-if has('termguicolors')
-	set termguicolors
-endif
+local nfnl_path = vim.fn.stdpath 'data' .. '/lazy/nfnl'
 
-" enable syntax highlighting
-"syntax enable
-
-" Set completeopt to have a better completion experience
-" :help completeopt
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Use our horizontal real estate to show the 3-way diff
-set diffopt+=vertical]] 
-
--- Allows folding (z<movement>) to recognize syntax folding rules, i.e. folding
--- on braces for C/C++
-function FoldConfig()
-	vim.opt.foldmethod='expr'
-	vim.opt.foldexpr='nvim_treesitter#foldexpr()'
-	vim.opt.foldenable = false
+if not vim.loop.fs_stat(nfnl_path) then
+  print("Could not find nfnl, cloning new copy to", nfnl_path)
+  vim.fn.system({'git', 'clone', 'https://github.com/Olical/nfnl', nfnl_path})
+  vim.cmd('helptags ' .. nfnl_path .. '/docs')
 end
+vim.opt.rtp:prepend(nfnl_path)
 
---autocmd BufAdd,BufEnter,BufNew,BufNewFile,BufWinEnter * :call FoldConfig()
-vim.api.nvim_create_autocmd(
-	{ "BufAdd","BufEnter","BufNew","BufNewFile","BufWinEnter" },
-	{ pattern = "*", command = "lua FoldConfig()" }
-)
---vim.opt.foldmethod = 'syntax'
-
--- Set text to be unfolded by default
--- vim.opt.statuscolumn = '%s%=%{v:wrap ? "" : v:lnum} %#FoldColumn#%@v:lua.StatusColumn.handler.fold@%{v:lua.StatusColumn.display.fold()}%#StatusColumnBorder#▐%#StatusColumnBuffer#'
-
--- display line numbers
-vim.opt.number = true 
-
--- time for vim to process swapfile updates and CursorHold events
-vim.opt.updatetime = 750
-
--- if hidden is not set, TextEdit might fail.
-vim.opt.hidden = true
-
--- set all true tabs and shifts (<</>>) to be 4 columns wide
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-
--- Better display for messages
-vim.opt.cmdheight = 2
-
--- display signs in the line number column
--- vim.opt.signcolumn = 'number'
-
-require('remaps')
-require('gitsigns').setup()
-require('lualine').setup {
-}
-
-require('catppuccin').setup {
-	flavour = 'mocha',
-	integrations = {
-		treesitter = true,
-		gitsigns = true,
-	}
-}
-
-vim.cmd.colorscheme "catppuccin"
-
-require('nvim-treesitter.configs').setup {
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "bash" },
-	highlight = { enable = true },
-    refactor = {
-		enable = true,
-		-- highlight_current_scope = { enable = true, } ,
-		highlight_definitions = { enable = true, },
-    },
-}
+require('nfnl').setup()
+require("ignite").setup()

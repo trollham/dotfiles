@@ -1,111 +1,34 @@
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]]
-
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+-- [nfnl] Compiled from fnl/plugins.fnl by https://github.com/Olical/nfnl, do not edit.
+local _local_1_ = require("nfnl.module")
+local autoload = _local_1_["autoload"]
+local lazy_path = (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
+local lazy_installed_3f = vim.loop.fs_stat(lazy_path)
+local plugins_to_install
+local function _2_()
+  local catppuccin = autoload("catppuccin")
+  catppuccin.setup({flavour = "frappe", integrations = {treesitter = true, gitsigns = true}})
+  return vim.cmd.colorscheme("catppuccin")
 end
-
-local packer_bootstrap = ensure_packer()
-
-return require'packer'.startup(function(use)
-	use 'wbthomason/packer.nvim'
-
-	use 'neovim/nvim-lspconfig' 
-	
-	-- autocompletion
-	use 'hrsh7th/nvim-cmp'
-	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-	use 'L3MON4D3/LuaSnip' -- Snippets plugin
-
-	use 'rstacruz/vim-closer'
-
-	-- rust-analyzer add-ons
-	use { 
-		'simrat39/rust-tools.nvim', 
-		requires = { {'nvim-lua/plenary.nvim'}, {'mfussenegger/nvim-dap'} }
-	}
-	
-	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-	
-	-- LSP progress indicator
-	use {
-		'j-hui/fidget.nvim',
-		tag = 'legacy',
-		config = function()
-			require('fidget').setup{
-				-- options
-			}
-		end
-	}
-
-	-- movements for commenting code (using gc<movement>)
-	use 'tpope/vim-commentary'
-	-- Git extensions
-	use 'tpope/vim-fugitive'
-	-- netrw enhancements
-	use 'tpope/vim-vinegar'
-	use 'lewis6991/gitsigns.nvim'
-	
-	-- fzf extensions
-	use { 'junegunn/fzf.vim', run = function() vim.fn["fzf#install"](0) end }
-
-	-- Nice status bar
-	use {
-	  'nvim-lualine/lualine.nvim',
-	  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-	}
-
-	use 'nvim-tree/nvim-web-devicons'
-
-	use { 'catppuccin/nvim', as = 'catppuccin' }
-
-	use { 
-		'nvim-treesitter/nvim-treesitter', 
-		run = function()
-			local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-			ts_update()
-		end
-	}
-	use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter', requires = 'nvim-treesitter' }
-	use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter', requires = 'nvim-treesitter' }
-
-	use 'folke/trouble.nvim'
-	use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-	}
-	use({
-		"luukvbaal/statuscol.nvim",
-		config = function() require("statuscol").setup() end
-	})
-	use({
-		'saecki/crates.nvim',
-		requires = { 'nvim-lua/plenary.nvim' },
-		config = function()
-			require('crates').setup()
-		end,
-	})
-
-	use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-})
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
+local function _3_()
+  return (vim.fn.executable("make") == 1)
+end
+local function _4_()
+  local crates = autoload("crates")
+  return crates.setup()
+end
+local function _5_()
+  vim.keymap.set({"n"}, "-", "<CMD>Oil<CR>", {desc = "Open parent directory"})
+  local oil = autoload("oil")
+  return oil.setup()
+end
+plugins_to_install = {{"Olical/nfnl", ft = "fennel"}, "tpope/vim-commentary", "tpope/vim-fugitive", "tpope/vim-vinegar", {"neovim/nvim-lspconfig"}, {"hrsh7th/nvim-cmp", dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-nvim-lsp-signature-help", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip"}}, {"mrcjkb/rustaceanvim", ft = "rust"}, "j-hui/fidget.nvim", "lewis6991/gitsigns.nvim", {"nvim-lualine/lualine.nvim", dependencies = {{"nvim-tree/nvim-web-devicons"}}}, {"catppuccin/nvim", name = "catppuccin", priority = 1000, opts = {flavour = "frappe", integrations = {treesitter = true, gitsigns = true}}, config = _2_, lazy = false}, {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate", dependencies = {"nvim-treesitter/nvim-treesitter-textobjects", "nvim-treesitter/nvim-treesitter-refactor"}}, "folke/trouble.nvim", {"nvim-telescope/telescope.nvim", version = "*", dependencies = {"nvim-lua/plenary.nvim"}}, {"nvim-telescope/telescope-fzf-native.nvim", build = "make", cond = _3_}, {"saecki/crates.nvim", config = _4_}, {"stevearc/oil.nvim", config = _5_}, "Olical/conjure", "PaterJason/cmp-conjure"}
+local function setup()
+  if not __fnl_global__packer_2dinstalled_3f then
+    vim.fn.system({"git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazy_path})
+  else
   end
-end)
-
+  do end (vim.opt.rtp):prepend(lazy_path)
+  local lazy = autoload("lazy")
+  return lazy.setup(plugins_to_install)
+end
+return {setup = setup}

@@ -4,7 +4,7 @@
 depends = []
 
 [nvim.files]
-nvim = "~/.config/nvim"
+nvim = { target = "~/.config/nvim", type = "symbolic" }
 
 [nvim.variables]
 
