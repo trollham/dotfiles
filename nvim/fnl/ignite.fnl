@@ -1,15 +1,16 @@
 (local {: autoload} (require :nfnl.module))
-(local plugins (autoload :plugins))
+
+(fn lazy-setup []
+  (let [lazy (autoload :lazy)]
+    (lazy.setup :plugins)))
 
 (fn setup []
-  	(plugins.setup)
-	(require :general)
-	;(require :config.catppuccin)
-	(require :config.fidget)
-	(require :config.gitsigns)
-	(require :config.lualine)
-	(require :config.treesitter)
-	nil)
-
+  (lazy-setup)
+  (require :general)
+  (require :config.cmp)
+  (require :config.treesitter)
+  (require :keymaps)
+  nil)
 
 {: setup}
+

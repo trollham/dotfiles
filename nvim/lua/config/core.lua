@@ -1,4 +1,4 @@
--- [nfnl] Compiled from fnl/general.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl/config/general.fnl by https://github.com/Olical/nfnl, do not edit.
 vim.opt.foldmethod = "expr"
 local termgui_3f = vim.fn.has("termguicolors")
 if termgui_3f then
@@ -20,4 +20,4 @@ vim.opt.shiftwidth = 4
 vim.opt.breakindent = true
 vim.opt.signcolumn = "number"
 vim.opt.cmdheight = 2
-return {}
+return nil

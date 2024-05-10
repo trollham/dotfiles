@@ -14,40 +14,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-get_install_date () {
-	echo $(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/rust-lang/rust-analyzer/releases/latest | jq .published_at)
-}
-
-normalize_date () {
-	local input_date=$(echo $1 | sed 's/Z//' | sed 's/"//g')
-	if [[ $OSTYPE == 'darwin'* ]]; then
-		echo $(date -j -f  "%Y-%m-%dT%H:%M:%s" "${input_date}" +%s)
-	else
-		echo $(date -d "${input_date}" +%s)
-	fi
-}
-
-check_rust_analyzer () {
-	local latest_date=$(get_install_date)
-	local installed_date=$(cat $HOME/.rust_analyzer_version)
-	local la_d=$(normalize_date "${latest_date}")
-	local in_d=$([ "$installed_date" ] && echo $(normalize_date "${installed_date}") || echo "0")
-
-	if [[ $la_d -gt $in_d ]]; then
-		echo "Update available"
-	else
-		echo "Already up-to-date."
-	fi
-}
-
-update_rust_analyzer () {
-	local version=$(get_install_date)
-	local host=$(rustc --version --verbose | grep host | awk '{print $2}')
-	curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-${host}.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-	chmod +x ~/.local/bin/rust-analyzer
-	echo $version > ~/.rust_analyzer_version
-}
-
 # history settings to remove duplicates
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
