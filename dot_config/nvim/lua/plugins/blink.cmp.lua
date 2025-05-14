@@ -1,0 +1,2 @@
+-- [nfnl] Compiled from fnl/plugins/blink.cmp.fnl by https://github.com/Olical/nfnl, do not edit.
+return {"Saghen/blink.cmp", dependencies = {"rafamadriz/friendly-snippets", "saghen/blink.compat", "agriffis/cmp-conjure"}, version = "1.*", opts = {keymap = {preset = "super-tab"}, sources = {default = {"lsp", "path", "snippets", "buffer", "conjure"}, providers = {conjure = {name = "conjure", module = "blink.compat.source"}}}, appearance = {kind_icons = {Conjure = "\240\159\170\132"}}}, lazy = false}
