@@ -8,17 +8,17 @@
   (let [mason (autoload :mason)]
     (mason.setup))
   (let [mason-lsp (autoload :mason-lspconfig)]
-    (mason-lsp.setup {:ensure_installed [:rust_analyzer :lua_ls]})))
+    (mason-lsp.setup {:ensure_installed [:rust_analyzer :lua_ls ]})))
 
 (fn setup []
   (lazy-setup)
   (require :general)
   (require :config.treesitter)
   (require :keymaps)
+  (vim.lsp.enable "fennel_ls")
+  (mason-setup)
   nil)
 
-(vim.lsp.config "*" {
-                     :capabilities (vim.lsp.protocol.make_client_capabilities)
-                     })
+(vim.lsp.config "*" {:capabilities (vim.lsp.protocol.make_client_capabilities)})
 
 {: setup}

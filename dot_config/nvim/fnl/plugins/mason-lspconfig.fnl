@@ -1,2 +1,1 @@
-{1 "mason-org/mason-lspconfig.nvim"
- :opts {}}
+{1 "mason-org/mason-lspconfig.nvim"}

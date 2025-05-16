@@ -1,4 +1,4 @@
--- [nfnl] Compiled from after/ftplugin/rust.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] after/ftplugin/rust.fnl
 local bufnr = vim.api.nvim_get_current_buf()
 local function _1_()
   return vim.cmd.RustLsp("codeAction")

@@ -1,3 +1,1 @@
-{1 "williamboman/mason.nvim"
- :opts {}
- }
+{1 "williamboman/mason.nvim"}

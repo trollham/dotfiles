@@ -23,5 +23,3 @@ bootstrap("lazy.nvim", "folke/lazy.nvim")
 bootstrap("nfnl", "Olical/nfnl")
 
 require("ignite").setup()
-
-require("lspconfig").fennel_ls.setup({})

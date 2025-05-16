@@ -18,6 +18,8 @@ local function setup()
   require("general")
   require("config.treesitter")
   require("keymaps")
+  vim.lsp.enable("fennel_ls")
+  mason_setup()
   return nil
 end
 vim.lsp.config("*", {capabilities = vim.lsp.protocol.make_client_capabilities()})
