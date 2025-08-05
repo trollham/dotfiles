@@ -6,7 +6,7 @@
 						  :query
 						  :rust
 						  :bash
-						 ; :fennel
+						  :fennel
                           ])
 (configs.setup {:ensure_installed ensure-installed
 				:highlight { :enable true }

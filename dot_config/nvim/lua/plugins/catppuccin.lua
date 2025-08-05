@@ -1,10 +1,10 @@
--- [nfnl] Compiled from fnl/plugins/catppuccin.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] fnl/plugins/catppuccin.fnl
 local _local_1_ = require("nfnl.module")
 local autoload = _local_1_["autoload"]
-local function _2_()
+local function _2_(opts)
   local catppuccin = autoload("catppuccin")
-  catppuccin.setup({flavour = "frappe", integrations = {treesitter = true, gitsigns = true}})
+  catppuccin.setup(opts)
   vim.cmd.colorscheme("catppuccin")
   return nil
 end
-return {"catppuccin/nvim", name = "catppuccin", priority = 1000, config = _2_, lazy = false}
+return {"catppuccin/nvim", name = "catppuccin", priority = 1000, opts = {flavour = "auto", integrations = {treesitter = true, gitsigns = true, fidget = true, noice = true, treesitter_context = true, lsp_trouble = true, which_key = true}}, config = _2_, lazy = false}

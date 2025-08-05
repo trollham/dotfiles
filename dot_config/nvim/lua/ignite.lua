@@ -5,22 +5,16 @@ local function lazy_setup()
   local lazy = autoload("lazy")
   return lazy.setup("plugins")
 end
-local function mason_setup()
-  do
-    local mason = autoload("mason")
-    mason.setup()
-  end
-  local mason_lsp = autoload("mason-lspconfig")
-  return mason_lsp.setup({ensure_installed = {"rust_analyzer", "lua_ls"}})
-end
 local function setup()
   lazy_setup()
   require("general")
-  require("config.treesitter")
   require("keymaps")
-  vim.lsp.enable("fennel_ls")
-  mason_setup()
   return nil
 end
 vim.lsp.config("*", {capabilities = vim.lsp.protocol.make_client_capabilities()})
+local function _2_(client, bufnr)
+  local navic = require("nvim-navic")
+  return navic.attach(client, bufnr)
+end
+vim.g.rustaceanvim = {server = {on_attach = _2_}}
 return {setup = setup}

@@ -1,25 +1,8 @@
-; local bufnr = vim.api.nvim_get_current_buf()
-; vim.keymap.set(
-;   "n", 
-;   "<leader>a", 
-;   function()
-;     vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
-;     -- or vim.lsp.buf.codeAction() if you don't want grouping.
-;   end,
-;   { silent = true, buffer = bufnr }
-; )
-; vim.keymap.set(
-;   "n", 
-;   "K",  -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-;   function()
-;     vim.cmd.RustLsp({'hover', 'actions'})
-;   end,
-;   { silent = true, buffer = bufnr }
-; )
-
-(local bufnr (vim.api.nvim_get_current_buf))
-(vim.keymap.set :n :gra (fn [] 
-                          (vim.cmd.RustLsp :codeAction)) {:silent true :buffer bufnr})
-
-(vim.keymap.set :n :K (fn [] 
-                        (vim.cmd.RustLsp [:hover :actions])) {:silent true :buffer bufnr})
+(let [bufnr (vim.api.nvim_get_current_buf)]
+  (vim.keymap.set :n :<leader>a (fn []
+                                  (vim.cmd.RustLsp :codeAction))
+                  { :silent true :buffer bufnr})
+  (vim.keymap.set :n :K (fn [] (vim.cmd.RustLsp [:hover :actions]))
+                  { :silent true :buffer bufnr})
+  (vim.api.nvim_create_autocmd :BufWritePre { :buffer bufnr :callback (fn [] (vim.lsp.buf.format {:async true }))})
+  )

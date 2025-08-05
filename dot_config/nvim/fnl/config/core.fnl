@@ -11,7 +11,6 @@
 ; noselect: Do not select, force user to select one from the menu
 (set vim.opt.completeopt "menuone,noinsert,noselect")
 (vim.opt.shortmess:append :c)
-(set vim.opt.diffopt :vertical)
 
 (set vim.opt.foldexpr "nvim_treesitter#foldexpr()")
 (set vim.opt.foldenable false)

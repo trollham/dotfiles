@@ -1,4 +1,3 @@
-{1
-  :mrcjkb/rustaceanvim
-  :version "^5"
-  :lazy false}
+{1 :mrcjkb/rustaceanvim
+ :version "^6"
+ :lazy false}

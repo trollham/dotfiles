@@ -1,2 +1,2 @@
--- [nfnl] Compiled from fnl/plugins/rustaceanvim.fnl by https://github.com/Olical/nfnl, do not edit.
-return {"mrcjkb/rustaceanvim", version = "^5", lazy = false}
+-- [nfnl] fnl/plugins/rustaceanvim.fnl
+return {"mrcjkb/rustaceanvim", version = "^6", lazy = false}

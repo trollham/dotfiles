@@ -4,21 +4,18 @@
   (let [lazy (autoload :lazy)]
     (lazy.setup :plugins)))
 
-(fn mason-setup []
-  (let [mason (autoload :mason)]
-    (mason.setup))
-  (let [mason-lsp (autoload :mason-lspconfig)]
-    (mason-lsp.setup {:ensure_installed [:rust_analyzer :lua_ls ]})))
-
 (fn setup []
-  (lazy-setup)
-  (require :general)
-  (require :config.treesitter)
-  (require :keymaps)
-  (vim.lsp.enable "fennel_ls")
-  (mason-setup)
-  nil)
+ (lazy-setup)
+ (require :general)
+ (require :keymaps)
+ nil)
 
 (vim.lsp.config "*" {:capabilities (vim.lsp.protocol.make_client_capabilities)})
+
+(set vim.g.rustaceanvim {
+                         :server {:on_attach (fn [client bufnr]
+                                               (let [navic (require "nvim-navic")]
+                                                 (navic.attach client bufnr)))}
+                         })
 
 {: setup}
