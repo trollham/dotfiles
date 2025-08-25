@@ -17,4 +17,5 @@ local function _2_(client, bufnr)
   return navic.attach(client, bufnr)
 end
 vim.g.rustaceanvim = {server = {on_attach = _2_}}
+vim.opt.winborder = "rounded"
 return {setup = setup}

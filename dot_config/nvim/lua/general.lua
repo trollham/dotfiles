@@ -19,7 +19,7 @@ vim.opt.breakindent = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.numberwidth = 3
 vim.opt.cmdheight = 2
-vim.diagnostic.config({virtual_lines = {current_line = true}, signs = {text = {[vim.diagnostic.severity.ERROR] = "", [vim.diagnostic.severity.WARN] = ""}, numhl = {[vim.diagnostic.severity.WARN] = "WarningMsg", [vim.diagnostic.severity.ERROR] = "ErrorMsg", [vim.diagnostic.severity.INFO] = "InfoMsg"}}})
+vim.diagnostic.config({virtual_text = {}, signs = {text = {[vim.diagnostic.severity.ERROR] = "", [vim.diagnostic.severity.WARN] = ""}, numhl = {[vim.diagnostic.severity.WARN] = "WarningMsg", [vim.diagnostic.severity.ERROR] = "ErrorMsg", [vim.diagnostic.severity.INFO] = "InfoMsg"}}})
 vim.opt.fillchars = {foldopen = "\239\145\188", foldclose = "\239\145\160", fold = " ", foldsep = " ", diff = "/", eob = " "}
 vim.opt.foldcolumn = "1"
 vim.opt.smoothscroll = true

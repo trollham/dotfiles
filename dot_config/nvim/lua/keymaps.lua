@@ -1,33 +1,23 @@
--- [nfnl] Compiled from fnl/keymaps.fnl by https://github.com/Olical/nfnl, do not edit.
-local _local_1_ = require("nfnl.module")
-local autoload = _local_1_["autoload"]
-local builtin = autoload("telescope.builtin")
-local function map_opt(mode, shortcut, command, opt)
-  _G.assert((nil ~= opt), "Missing argument opt on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:4")
-  _G.assert((nil ~= command), "Missing argument command on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:4")
-  _G.assert((nil ~= shortcut), "Missing argument shortcut on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:4")
-  _G.assert((nil ~= mode), "Missing argument mode on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:4")
-  return vim.keymap.set(mode, shortcut, command, opt)
-end
+-- [nfnl] fnl/keymaps.fnl
 local function map(mode, shortcut, command)
-  _G.assert((nil ~= command), "Missing argument command on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:7")
-  _G.assert((nil ~= shortcut), "Missing argument shortcut on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:7")
-  _G.assert((nil ~= mode), "Missing argument mode on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:7")
+  _G.assert((nil ~= command), "Missing argument command on /home/ehuff/.config/nvim/fnl/keymaps.fnl:1")
+  _G.assert((nil ~= shortcut), "Missing argument shortcut on /home/ehuff/.config/nvim/fnl/keymaps.fnl:1")
+  _G.assert((nil ~= mode), "Missing argument mode on /home/ehuff/.config/nvim/fnl/keymaps.fnl:1")
   return vim.keymap.set(mode, shortcut, command, {noremap = true, silent = true})
 end
 local function nmap(shortcut, command)
-  _G.assert((nil ~= command), "Missing argument command on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:10")
-  _G.assert((nil ~= shortcut), "Missing argument shortcut on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:10")
+  _G.assert((nil ~= command), "Missing argument command on /home/ehuff/.config/nvim/fnl/keymaps.fnl:4")
+  _G.assert((nil ~= shortcut), "Missing argument shortcut on /home/ehuff/.config/nvim/fnl/keymaps.fnl:4")
   return map("n", shortcut, command)
 end
 local function imap(shortcut, command)
-  _G.assert((nil ~= command), "Missing argument command on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:13")
-  _G.assert((nil ~= shortcut), "Missing argument shortcut on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:13")
+  _G.assert((nil ~= command), "Missing argument command on /home/ehuff/.config/nvim/fnl/keymaps.fnl:7")
+  _G.assert((nil ~= shortcut), "Missing argument shortcut on /home/ehuff/.config/nvim/fnl/keymaps.fnl:7")
   return map("i", shortcut, command)
 end
 local function tmap(shortcut, command)
-  _G.assert((nil ~= command), "Missing argument command on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:16")
-  _G.assert((nil ~= shortcut), "Missing argument shortcut on /Users/trollham/dotfiles/nvim/fnl/keymaps.fnl:16")
+  _G.assert((nil ~= command), "Missing argument command on /home/ehuff/.config/nvim/fnl/keymaps.fnl:10")
+  _G.assert((nil ~= shortcut), "Missing argument shortcut on /home/ehuff/.config/nvim/fnl/keymaps.fnl:10")
   return map("t", shortcut, command)
 end
 imap("jk", "<Esc>")
@@ -44,7 +34,4 @@ nmap("<M-h>", "<C-w>h")
 nmap("<M-j>", "<C-w>j")
 nmap("<M-k>", "<C-w>k")
 nmap("<M-l>", "<C-w>l")
-map_opt("n", "<leader>g", builtin.live_grep, {})
-map_opt("n", "<leader>f", builtin.find_files, {})
-map_opt("n", "<leader>b", builtin.buffers, {})
 return {}

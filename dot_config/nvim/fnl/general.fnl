@@ -40,7 +40,7 @@
 ; Better display for messages
 (set vim.opt.cmdheight 2)
 ; customize diagnostics output. This removes symbols in favor of coloring the line number.
-(vim.diagnostic.config { :virtual_lines {:current_line true}
+(vim.diagnostic.config { :virtual_text {}
                         :signs {:text {vim.diagnostic.severity.ERROR ""
                                        vim.diagnostic.severity.WARN "" }
                                 :numhl { vim.diagnostic.severity.WARN "WarningMsg"

@@ -1,9 +1,3 @@
-(local {: autoload} (require :nfnl.module))
-(local builtin (autoload :telescope.builtin))
-
-(lambda map-opt [mode shortcut command opt]
- (vim.keymap.set mode shortcut command opt))
-
 (lambda map [mode shortcut command]
  (vim.keymap.set mode shortcut command { :noremap true :silent true }))
 
@@ -34,9 +28,4 @@
 (nmap "<M-j>" "<C-w>j")
 (nmap "<M-k>" "<C-w>k")
 (nmap "<M-l>" "<C-w>l")
-
-
-(map-opt :n "<leader>g" builtin.live_grep {})
-(map-opt :n "<leader>f" builtin.find_files {})
-(map-opt :n "<leader>b" builtin.buffers {})
 { }
