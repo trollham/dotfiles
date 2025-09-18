@@ -18,4 +18,5 @@ local function _2_(client, bufnr)
 end
 vim.g.rustaceanvim = {server = {on_attach = _2_}}
 vim.opt.winborder = "rounded"
+vim.pack.add({"https://github.com/j-hui/fidget.nvim", "https://github.com/lewis6991/gitsigns.nvim", "https://github.com/neovim/nvim-lspconfig", "https://github.com/mason-org/mason-lspconfig.nvim", "https://github.com/mfussenegger/nvim-dap", "https://github.com/rachartier/tiny-inline-diagnostic.nvim", "https://github.com/atweiden/vim-fennel", "https://github.com/tpope/vim-fugitive", "https://github.com/tpope/vim-surround"})
 return {setup = setup}
