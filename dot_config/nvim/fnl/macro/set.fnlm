@@ -1,0 +1,77 @@
+;; fennel-ls: macro-file
+
+(local {: str? : ->str : nil? : includes?} (require :utils))
+(local {: fn? : gensym-checksum : vlua} (require :macro.toolkit))
+
+(λ set! [name ?value]
+  "Set a vim option via the lua API.
+  The name of the option must a symbol.
+  If no value is specified, if the name begins with 'no' the value
+  becomes false, true otherwise."
+  (assert-compile (sym? name) "expected symbol for name" name)
+  (let [name (->str name)
+        value (or ?value (not (name:match "^no")))
+        name (or (name:match "^no(.+)$") name)]
+    (if (fn? value)
+        (let [vsym (gensym-checksum "__" value)]
+          `(do
+             (global ,vsym ,value)
+             (tset vim.opt ,name ,(vlua vsym))))
+        (case (name:sub -1)
+          "+" `(: (. vim.opt ,(name:sub 1 -2)) :append ,value)
+          "-" `(: (. vim.opt ,(name:sub 1 -2)) :remove ,value)
+          "^" `(: (. vim.opt ,(name:sub 1 -2)) :prepend ,value)
+          _ `(tset vim.opt ,name ,value)))))
+
+(λ setl! [name ?value]
+  "Set a vim local option via the lua API.
+  The name of the option must a symbol.
+  If no value is specified, if the name begins with 'no' the value
+  becomes false, true otherwise."
+  (assert-compile (sym? name) "expected symbol for name" name)
+  (let [name (->str name)
+        value (or ?value (not (name:match "^no")))
+        name (or (name:match "^no(.+)$") name)]
+    (if (fn? value)
+        (let [fsym (gensym-checksum "__" value)]
+          `(do
+             (global ,fsym ,value)
+             (tset vim.opt_local ,name ,(vlua fsym))))
+        (case (name:sub -1)
+          :+ `(: (. vim.opt_local ,(name:sub 1 -2)) :append ,value)
+          :- `(: (. vim.opt_local ,(name:sub 1 -2)) :remove ,value)
+          :^ `(: (. vim.opt_local ,(name:sub 1 -2)) :prepend ,value)
+          _ `(tset vim.opt_local ,name ,value)))))
+
+(λ setv! [name value]
+  "Set a vim variable via the lua API.
+  The name can be either a symbol or a string.
+  If the name begins with [gbwt] followed by [/:.], the name
+  is scoped to the respective scope."
+  (assert-compile (or (str? name) (sym? name))
+                  "expected string or symbol for name" name)
+  (let [name (->str name)
+        scope (when (includes? ["g/"
+                                "b/"
+                                "w/"
+                                "t/"
+                                "g."
+                                "b."
+                                "w."
+                                "t."
+                                "g:"
+                                "b:"
+                                "w:"
+                                "t:"]
+                               (name:sub 1 2))
+                (name:sub 1 1))
+        name (if (nil? scope)
+                 name
+                 (name:sub 3))]
+    `(tset ,(case scope
+              :b `vim.b
+              :w `vim.w
+              :t `vim.t
+              _ `vim.g) ,name ,value)))
+
+{: set! : setl! : setv!}
