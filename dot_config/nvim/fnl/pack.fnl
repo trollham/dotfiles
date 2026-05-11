@@ -78,7 +78,7 @@
 (pack! :nvim-tree/nvim-web-devicons)
 (pack! :stevearc/oil.nvim
        {:setup (fn []
-                 (vim.keymap.set [:n] :- "<CMD>Oil<CR>"
+                 (map! [:n] :- "<CMD>Oil<CR>"
                                  {:desc "Open parent directory"})
                  (let [oil (require :oil)]
                    (oil.setup {:view_options {:show_hidden true}})))})
@@ -88,12 +88,12 @@
        {:setup (fn []
                  (local snacks (require :snacks))
                  (snacks.setup {:input {:enabled true} :picker {:enabled true}})
-                 (vim.keymap.set [:n] :<leader>f
+                 (map! [:n] :<leader>f
                                  (fn [] (Snacks.picker.smart))
                                  {:desc "Smart Find Files"})
-                 (vim.keymap.set [:n] :<leader>g
+                 (map! [:n] :<leader>g
                                  (fn [] (Snacks.picker.grep)) {:desc "Grep"})
-                 (vim.keymap.set [:n] :<leader>b
+                 (map! [:n] :<leader>b
                                  (fn [] (Snacks.picker.buffers))
                                  {:desc "Buffers"}))})
 
